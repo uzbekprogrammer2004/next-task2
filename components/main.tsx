@@ -1,38 +1,17 @@
-import React, { useEffect } from 'react';
+
+
+import React from 'react';
 import { CalendarOutlined, EyeOutlined, FileTextOutlined, PercentageOutlined, TruckOutlined } from '@ant-design/icons';
 import Image from 'next/image';
-import 'swiper/swiper-bundle.min.css';
+import { Carousel } from 'antd';
 import PumaLogo from '@/public/pumalogo.webp';
 import UnderArmourLogo from '@/public/underlogo.jpg';
 import NikeLogo from '@/public/nikelogo.jpg';
 import AdidasLogo from '@/public/adidaslogo.png';
 import ReebokLogo from '@/public/reeboklogo.png';
 import Img from '@/public/png.png';
-import './main.css';
 
-const Index: React.FC = () => {
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      // Dynamically import Swiper only on the client-side
-      import('swiper/bundle').then(({ default: Swiper }) => {
-        new Swiper('.swiper', {
-          direction: 'vertical',
-          loop: true,
-          pagination: {
-            el: '.swiper-pagination',
-          },
-          navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev',
-          },
-          scrollbar: {
-            el: '.swiper-scrollbar',
-          },
-        });
-      });
-    }
-  }, []);
-
+const Index = () => {
   return (
     <main className="bg-[#f2f2f2] pt-7 pb-9">
       <div className="mx-[20px] lg:mx-[138px]">
@@ -46,7 +25,7 @@ const Index: React.FC = () => {
                 Как правильно выбрать эллиптический тренажер?
               </h2>
               <p className="text-black text-base font-normal mt-2 font-[Roboto] w-full lg:w-[484px] h-auto lg:h-[110px] leading-snug">
-                Эллиптические тренажёры популярны среди людей любого возраста и с разным уровнем физической подготовки...
+                Эллиптические тренажёры популярны среди людей любого возраста и с разным уровнем физической подготовкb Эллиптические тренажёры популярны среди людей любого возраста и с разным уровнем физической подготовки...
               </p>
             </div>
             <div className="flex gap-[39px]">
@@ -74,21 +53,21 @@ const Index: React.FC = () => {
         <div className="text-[#1e1c14] text-[24px] lg:text-[32px] font-medium mt-[80px] mb-[30px] font-['Fira Sans']">Примущества</div>
         <div className="flex flex-col lg:flex-row gap-[15px]">
           <div className="w-full lg:w-[287px] h-auto lg:h-[289px] bg-white rounded-lg flex flex-col items-center pt-[72px] pb-[30px]">
-            <div className="w-[26px] h-[26px] bg-[#fbd029] rounded-[5px] mb-[-20px] ml-[10px]"></div>
+            <div className="w-[26px] h-[26px] bg-[#fbd029] rounded-[5px] mb-[-20px] ml-10px]"></div>
             <div className="text-black">
-              <TruckOutlined className="text-[50px] pl-[150px] transform -scale-x-100 mr-[-100px]" />
+              <TruckOutlined className="text-[50px] pl-[150px] transform  -scale-x-100 mr-[-100px]" />
             </div>
             <div className="text-black text-xl font-normal font-['Fira Sans'] pl-10 mt-[30px] text-start">
               Доставка по всему Узбекистану
             </div>
           </div>
-          <div className="w-full lg:w-[287px] h-auto lg:h-[289px] bg-white rounded-lg flex flex-col items-center pt-[62px] pb-[30px]">
-            <div className="w-[26px] h-[26px] bg-[#fbd029] rounded-[5px] mb-[-15px] ml-[-50px]"></div>
+          <div className="w-full lg:w-[287px] h-auto lg:h-[289px] bg-white rounded-lg flex flex-col items-center pt-[72px] pb-[30px]">
+            <div className="w-[26px] h-[26px] bg-[#fbd029] rounded-[5px] mb-[-20px] ml-10px]"></div>
             <div className="text-black">
-              <FileTextOutlined className="text-[40px] pl-[130px] ml-[-110px] mr-[100px]" />
+              <TruckOutlined className="text-[50px] pl-[150px] transform  -scale-x-100 mr-[-100px]" />
             </div>
-            <div className="text-black text-xl font-normal font-['Fira Sans'] mt-[30px] pl-10 text-start">
-              Широкий ассортимент товаров
+            <div className="text-black text-xl font-normal font-['Fira Sans'] pl-10 mt-[30px] text-start">
+              Доставка по всему Узбекистану
             </div>
           </div>
           <div className="w-full lg:w-[287px] h-auto lg:h-[289px] bg-white rounded-lg flex flex-col items-center pt-[72px] pb-[30px]">
@@ -98,6 +77,15 @@ const Index: React.FC = () => {
             </div>
             <div className="text-black text-xl font-normal font-['Fira Sans'] pl-10 mr-[80px] mt-[30px] text-start">
               Скидки и акции
+            </div>
+          </div>
+          <div className="w-full lg:w-[287px] h-auto lg:h-[289px] bg-white rounded-lg flex flex-col items-center pt-[62px] pb-[30px]">
+            <div className="w-[26px] h-[26px] bg-[#fbd029] rounded-[5px] mb-[-15px] ml-[-50px]"></div>
+            <div className="text-black">
+              <FileTextOutlined className="text-[40px] pl-[130px] ml-[-110px] mr-[100px]" />
+            </div>
+            <div className="text-black text-xl font-normal font-['Fira Sans'] mt-[30px] pl-10 text-start">
+              Широкий ассортимент товаров
             </div>
           </div>
         </div>
@@ -120,21 +108,27 @@ const Index: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="swiper">
-        <div className="swiper-wrapper">
-          <div className="swiper-slide"><Image src={PumaLogo} alt='Puma logosi bor ' /></div>
-          <div className="swiper-slide"><Image src={UnderArmourLogo} alt='UnderArmour logosi bor '/></div>
-          <div className="swiper-slide"><Image src={NikeLogo} alt='Nike logosi bor ' /></div>
-          <div className="swiper-slide"><Image src={ReebokLogo} alt='Reebok logosi bor ' /></div>
-          <div className="swiper-slide"><Image src={AdidasLogo} alt='Adidas logosi bor ' /></div>
-        </div>
-        <div className="swiper-pagination"></div>
-        <div className="swiper-button-prev"></div>
-        <div className="swiper-button-next"></div>
-        <div className="swiper-scrollbar"></div>
+      <div className="mx-[20px] lg:mx-[138px] mt-[40px] lg:mt-[80px]">
+        <Carousel autoplay className='w-full h-154px ' >
+          <div className="flex justify-center items-center h-48 bg-white rounded-lg p-4">
+            <Image src={PumaLogo} alt="Puma Logo" className="h-24" />
+          </div>
+          <div className="flex justify-center items-center h-48 bg-white rounded-lg p-4">
+            <Image src={UnderArmourLogo} alt="Under Armour Logo" className="h-24" />
+          </div>
+          <div className="flex justify-center items-center h-48 bg-white rounded-lg p-4">
+            <Image src={NikeLogo} alt="Nike Logo" className="h-24" />
+          </div>
+          <div className="flex justify-center items-center h-48 bg-white rounded-lg p-4">
+            <Image src={AdidasLogo} alt="Adidas Logo" className="h-24" />
+          </div>
+          <div className="flex justify-center items-center h-48 bg-white rounded-lg p-4">
+            <Image src={ReebokLogo} alt="Reebok Logo" className="h-24" />
+          </div>
+        </Carousel>
       </div>
     </main>
   );
 };
 
-export default Index
+export default Index;
