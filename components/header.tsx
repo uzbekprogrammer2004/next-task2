@@ -1,8 +1,6 @@
-"use client"; // Ensure this directive is present
-
+"use client";
 import React, { useState } from 'react';
 import 'antd/dist/reset.css';
-import { Carousel } from 'antd';
 import Image from 'next/image';
 import Link from 'next/link';
 import {
@@ -10,14 +8,13 @@ import {
     ShoppingCartOutlined, UserOutlined, MenuOutlined, CloseOutlined
 } from '@ant-design/icons';
 import Logo from '@/public/logo.png';
-import CaruselImg from '@/public/13.jpg';
 
 const links = [
-    { path: "/", title: "Продукты" },
-    { path: "/Контакты", title: "Контакты" },
-    { path: "/Оплата-Доставка", title: "Оплата и Доставка" },
-    { path: "/Новости", title: "Новости" },
-    { path: "/o-нас", title: "О нас" },
+    { path: "/products", title: "Продукты" },
+    { path: "/contacts", title: "Контакты" },
+    { path: "/payment-delivery", title: "Оплата и Доставка" },
+    { path: "/news", title: "Новости" },
+    { path: "/about", title: "О нас" },
 ];
 
 const Index: React.FC = () => {
@@ -27,7 +24,6 @@ const Index: React.FC = () => {
 
     return (
         <header>
-            {/* Top bar */}
             <div className='bg-[#1F1D14] xl:px-[138px] text-white flex flex-col lg:flex-row items-center justify-between px-[38px] py-4'>
                 <div className="flex items-center mb-4 lg:mb-0">
                     <div className='flex items-center text-xl lg:text-2xl font-semibold font-[Fira Sans]'>
@@ -51,7 +47,6 @@ const Index: React.FC = () => {
                         <MailOutlined />
                         <span className='ml-2'>info@gmail.com</span>
                     </div>
-                    {/* Hamburger Menu */}
                     <button
                         className='lg:hidden p-2'
                         onClick={toggleMenu}
@@ -100,28 +95,17 @@ const Index: React.FC = () => {
                             </Link>
                         ))}
                     </nav>
-                    <div className='flex flex-col items-center text-base'>
+                    <div className='flex flex-col items-center text-base text-black '>
                         <div className='flex items-center mb-2'>
-                            <PhoneOutlined />
-                            <span className='ml-2'>+998 (90) 565-85-85</span>
+                            <PhoneOutlined className='text-black'/>
+                            <span text-black className='ml-2 text-black '>+998 (90) 565-85-85</span>
                         </div>
                         <div className='flex items-center'>
-                            <MailOutlined />
-                            <span className='ml-2'>info@gmail.com</span>
+                            <MailOutlined className='text-black'/>
+                            <span className='ml-2 text-black '>info@gmail.com</span>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            {/* Carousel */}
-            <div className='relative w-full h-[200px] lg:h-[450px] bg-[#F2F2F2]'>
-                <Carousel autoplay autoplaySpeed={3000} speed={500} infinite>
-                    {[...Array(4)].map((_, index) => (
-                        <div key={index} className='flex justify-center items-center'>
-                            <Image src={CaruselImg} alt={`Image ${index + 1}`} layout="responsive" objectFit="cover" />
-                        </div>
-                    ))}
-                </Carousel>
             </div>
         </header>
     );

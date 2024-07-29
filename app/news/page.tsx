@@ -1,6 +1,11 @@
 import { CalendarOutlined, EyeOutlined } from '@ant-design/icons';
 import React from 'react';
-
+import { ShoppingCartOutlined } from '@ant-design/icons';
+import Image from 'next/image';
+import Img from '@/public/img.png';
+import Img2 from '@/public/img2.png';
+import Img3 from '@/public/img3.png';
+import Img4 from '@/public/img4.png';
 const Index: React.FC = () => {
   const data = [
     { name: "Как правильно выбрать эллиптический тренажер?", title: "Эллиптические тренажёры популярны среди людей любого возраста и с разным уровнем физической подготовки...", time: "27.01.2022", eye: "250" },
@@ -15,7 +20,6 @@ const Index: React.FC = () => {
     { name: "Как начать бегать: советы для новичков", title: "Бег помогает улучшить общее здоровье, выносливость и настроение. Важно начать с небольших дистанций и постепенно увеличивать нагрузку...", time: "05.02.2022", eye: "700" }
   ];
 
-  // Function to chunk data into rows of 2
   const chunkData = (array: typeof data, chunkSize: number) => {
     return array.reduce((result: typeof data[], item, index) => {
       const chunkIndex = Math.floor(index / chunkSize);
@@ -26,15 +30,40 @@ const Index: React.FC = () => {
       return result;
     }, []);
   };
-
+  const data2 = [
+    {
+      name: "Бутса Nike Mercurial Superfly 8 FG",
+      price: "500 000 So'm",
+      old_price: "750 000 So'm",
+      img: Img
+    },
+    {
+      name: "Бутса Nike Mercurial Superfly 8 FG",
+      price: "500 000 So'm",
+      old_price: "750 000 So'm",
+      img: Img2
+    },
+    {
+      name: "Бутса Nike Mercurial Superfly 8 FG",
+      price: "500 000 So'm",
+      old_price: "750 000 So'm",
+      img: Img3
+    },
+    {
+      name: "Бутса Nike Mercurial Superfly 8 FG",
+      price: "500 000 So'm",
+      old_price: "750 000 So'm",
+      img: Img4
+    },
+  ];
   const rows = chunkData(data, 2);
 
   return (
-    <main className="mx-[20px] lg:mx-[138px]">
+    <main className="w-full lg:px-[138px] bg-[#f2f2f2] ">
       {rows.map((row, rowIndex) => (
         <div key={rowIndex} className="flex flex-col lg:flex-row gap-[24px] mb-8">
           {row.map((item, itemIndex) => (
-            <div key={itemIndex} className="flex flex-col justify-between w-full lg:w-[48%] rounded-lg h-auto lg:h-[417px] bg-white text-black pt-[38px] pl-[35px] pb-[45px]">
+            <div key={itemIndex} className="flex flex-col justify-between w-full lg:w-[50%] rounded-lg h-auto lg:h-[417px] bg-white text-black pt-[38px] pl-[35px] pb-[45px]">
               <div>
                 <h2 className="text-[#1e1c14] text-[24px] lg:text-[32px] font-[700] font-[Fira Sans] w-full">
                   {item.name}
@@ -57,6 +86,29 @@ const Index: React.FC = () => {
           ))}
         </div>
       ))}
+            <div className='mb-32' >
+        <h2 className='text-2xl font-bold mt-8 mb-4'>Акция</h2>
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6'>
+          {data2.map((item, index) => (
+            <div
+              key={index}
+              className='bg-white p-4 border rounded-lg shadow-sm transform transition-transform duration-100 hover:scale-105 hover:border-red-500'
+            >
+              <div className='relative'>
+                <Image src={item.img} alt={item.name} layout='responsive' />
+                <span className='absolute top-0 left-0 bg-red-500 text-white text-sm px-2 py-1'>Акция</span>
+              </div>
+              <h3 className='text-lg font-bold mt-4 mb-2'>{item.name}</h3>
+              <p className='text-red-500 font-bold'>{item.price}</p>
+              <p className='text-gray-500 line-through'>{item.old_price}</p>
+              <button className='w-full bg-yellow-500 text-black py-2 mt-4 transition-colors duration-300 hover:bg-red-700'>
+              <ShoppingCartOutlined className='text-black mr-3 ' />
+                Корзина
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
     </main>
   );
 }

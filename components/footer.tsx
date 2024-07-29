@@ -18,7 +18,7 @@ const Footer: React.FC = () => {
             <div className="footer-section">
               <p className="footer-title">Контакты</p>
               <div className="contact-info my-3 ">
-                <PhoneOutlined className="icon" />
+                <PhoneOutlined className="icon text-white " />
                 <span className="contact-prefix">+998 (94) </span>
                 <span className="contact-number">565-85-85</span>
               </div>
