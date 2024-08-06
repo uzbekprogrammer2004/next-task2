@@ -11,15 +11,20 @@
   "dependencies": {
     "@ant-design/icons": "^5.4.0",
     "@emotion/react": "^11.13.0",
+    "@emotion/styled": "^11.13.0",
     "@mui/icons-material": "^5.16.5",
+    "@types/styled-components": "^5.1.34",
     "antd": "^5.19.3",
-    "axios": "^1.7.2",
+    "axios": "^1.7.3",
     "bootstrap": "^5.3.3",
     "js-cookie": "^3.0.5",
     "mui": "^0.0.1",
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18",
+    "react-hook-form": "^7.52.2",
+    "react-icons": "^5.2.1",
+    "styled-components": "^6.1.12",
     "swiper": "^11.1.8"
   },
   "devDependencies": {
