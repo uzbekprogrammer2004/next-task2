@@ -16,16 +16,17 @@ import {
 import { Modal, Form, Input, Button, notification } from "antd";
 import Logo from "@/public/logo.png";
 import { Login } from "@/service/auth";
-import { basketSave } from "@/service/korzina";
 import { useRouter } from "next/navigation";
 import { getProduct } from "@/service/product";
 
 interface Product {
-  product_id: number;
+  product_id: string;
   product_name: string;
-  cost: number;
-  image_url: string;
-  count: number;
+  image_url: string[];
+  basket: string;
+  cost: string;
+  discount: string;
+  liked?: boolean; // Yangi xususiyat qo'shish
 }
 
 const links = [
@@ -45,8 +46,11 @@ const Index: React.FC = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await getProduct();
-        setProducts(response.data);
+        // Provide page and limit arguments
+        const page = 1;
+        const limit = 10;
+        const products = await getProduct(page, limit);
+        setProducts(products);
       } catch (error) {
         console.error("Error fetching products:", error);
       }
@@ -106,7 +110,7 @@ const Index: React.FC = () => {
 
   // products null emasligini tekshirish
   const totalQuantity = products ? products.reduce(
-    (total, product) => total + product.count,
+    (total, product) => total + (parseInt(product.basket) || 0),
     0
   ) : 0;
 
@@ -262,7 +266,8 @@ const Index: React.FC = () => {
               />
               <h2>{product.product_name}</h2>
               <p>Cost: {product.cost}</p>
-              <p>Count: {product.count}</p>
+              <p>Discount: {product.discount}</p>
+              <p>Basket Count: {product.basket}</p>
             </div>
           ))}
         </div>
@@ -292,17 +297,16 @@ export default Index;
 // import { Modal, Form, Input, Button, notification } from "antd";
 // import Logo from "@/public/logo.png";
 // import { Login } from "@/service/auth";
+// import { basketSave } from "@/service/korzina";
 // import { useRouter } from "next/navigation";
 // import { getProduct } from "@/service/product";
 
 // interface Product {
-//   product_id: string;
+//   product_id: number;
 //   product_name: string;
-//   image_url: string[];
-//   basket: string;
-//   cost: string;
-//   discount: string;
-//   liked?: boolean;
+//   cost: number;
+//   image_url: string;
+//   count: number;
 // }
 
 // const links = [
@@ -322,10 +326,8 @@ export default Index;
 //   useEffect(() => {
 //     const fetchProducts = async () => {
 //       try {
-//         const page = 1; // Sahifa raqami
-//         const limit = 10; // Mahsulotlar soni
-//         const productList = await getProduct(page, limit);
-//         setProducts(productList);
+//         const response = await getProduct();
+//         setProducts(response.data);
 //       } catch (error) {
 //         console.error("Error fetching products:", error);
 //       }
@@ -379,14 +381,13 @@ export default Index;
 //   const handleButtonKorzinaClick = () => {
 //     router.push("/korzina");
 //   };
-
 //   const handleButtonLikeClick = () => {
 //     router.push("/like");
 //   };
 
 //   // products null emasligini tekshirish
 //   const totalQuantity = products ? products.reduce(
-//     (total, product) => total + (parseInt(product.basket, 10) || 0),
+//     (total, product) => total + product.count,
 //     0
 //   ) : 0;
 
@@ -535,14 +536,14 @@ export default Index;
 //           {products && products.map((product) => (
 //             <div key={product.product_id} className="product">
 //               <Image
-//                 src={product.image_url[0]}
+//                 src={Array.isArray(product.image_url) ? product.image_url[0] : product.image_url}
 //                 alt={product.product_name}
 //                 width={100}
 //                 height={100}
 //               />
 //               <h2>{product.product_name}</h2>
 //               <p>Cost: {product.cost}</p>
-//               <p>Count: {product.basket}</p>
+//               <p>Count: {product.count}</p>
 //             </div>
 //           ))}
 //         </div>
@@ -552,3 +553,4 @@ export default Index;
 // };
 
 // export default Index;
+

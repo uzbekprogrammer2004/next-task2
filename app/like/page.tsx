@@ -647,22 +647,13 @@
 
 // export default ShoppingCart;
 
-"use client";
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { getLike, likeSave } from '@/service/like';
+import { getLike, likeSave, Product } from '@/service/like';
 import { notification } from 'antd';
 import Favorite from '@mui/icons-material/Favorite';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
-
-interface Product {
-  product_id: number;
-  product_name: string;
-  cost: number;
-  image_url: string[];
-  count: number;
-}
 
 interface FormValues {
   name: string;
@@ -689,9 +680,10 @@ const ShoppingCart: React.FC = () => {
     try {
       const response = await getLike(page, limit);
       console.log('Serverdan javob:', response);
+
       if (response) {
-        const validProducts = response.filter((product: Product) =>
-          product.image_url.every((url: string) => {
+        const validProducts = response.filter((product) =>
+          product.image_url.every((url) => {
             try {
               new URL(url);
               return true;
@@ -702,11 +694,10 @@ const ShoppingCart: React.FC = () => {
           })
         );
 
-        // Set initial liked state to true for all fetched products
-        const liked = validProducts.reduce((acc: { [key: number]: boolean }, product) => {
-          acc[product.product_id] = true; // Default to true for demonstration
+        const liked = validProducts.reduce((acc, product) => {
+          acc[product.product_id] = product.like || false; // Default to false if not defined
           return acc;
-        }, {});
+        }, {} as { [key: number]: boolean });
 
         setProducts(validProducts);
         setLikedProducts(liked);
@@ -733,12 +724,12 @@ const ShoppingCart: React.FC = () => {
             );
             notification.success({
               message: 'Success',
-              description: 'Like bo&apos;yicha ma&apos;lumot muvaffaqiyatli olib tashlandi',
+              description: 'Like bo‘yicha ma’lumot muvaffaqiyatli olib tashlandi',
             });
           } else {
             notification.success({
               message: 'Success',
-              description: 'Like bo&apos;yicha ma&apos;lumot muvaffaqiyatli saqlandi',
+              description: 'Like bo‘yicha ma’lumot muvaffaqiyatli saqlandi',
             });
           }
           return newLikedProducts;
@@ -748,7 +739,7 @@ const ShoppingCart: React.FC = () => {
       console.error('Xato tafsilotlari:', error);
       notification.error({
         message: 'Saqlashda xatolik',
-        description: 'Ma&apos;lumot saqlanmadi',
+        description: 'Ma’lumot saqlanmadi',
       });
     }
   };
@@ -815,7 +806,6 @@ const ShoppingCart: React.FC = () => {
                   </div>
                   <div className="flex flex-col sm:flex-row">
                     <div className="w-36 h-28 flex-shrink-0 mr-4 relative">
-                      {/* Display the first image from image_url array */}
                       <Image
                         src={product.image_url[0]}
                         alt={product.product_name}
@@ -838,7 +828,7 @@ const ShoppingCart: React.FC = () => {
               ))}
             </div>
             <button onClick={handleLoadMore} className="w-full mt-4 py-2 bg-blue-500 text-white font-bold rounded-lg">
-              Ko&apos;proq yuklash
+              Ko‘proq yuklash
             </button>
             <h3 className="pt-4 pb-4 max-w-[400px] text-blue-500 cursor-pointer">
               Все информация о доставке
