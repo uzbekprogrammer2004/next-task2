@@ -252,26 +252,6 @@ const Index: React.FC = () => {
           </Form.Item>
         </Form>
       </Modal>
-
-      {/* Products List */}
-      <div>
-        <div className="products">
-          {products && products.map((product) => (
-            <div key={product.product_id} className="product">
-              <Image
-                src={Array.isArray(product.image_url) ? product.image_url[0] : product.image_url}
-                alt={product.product_name}
-                width={100}
-                height={100}
-              />
-              <h2>{product.product_name}</h2>
-              <p>Cost: {product.cost}</p>
-              <p>Discount: {product.discount}</p>
-              <p>Basket Count: {product.basket}</p>
-            </div>
-          ))}
-        </div>
-      </div>
     </header>
   );
 };
