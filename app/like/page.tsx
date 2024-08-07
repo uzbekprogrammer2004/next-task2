@@ -646,7 +646,7 @@
 // };
 
 // export default ShoppingCart;
-
+"use client";
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useForm, SubmitHandler } from 'react-hook-form';

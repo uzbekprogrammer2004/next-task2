@@ -307,6 +307,7 @@
 // export default ShoppingCart;
 
 "use client";
+
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -573,7 +574,7 @@ const ShoppingCart: React.FC = () => {
               </form>
             </div>
             <div>
-              <h2 className="flex pl-4">To'lov tizimlari</h2>
+              <h2 className="pl-4">To'lov tizimlari</h2>
               <div className="bg-white-100 p-4 flex gap-2 ">
                 <Link href="https://paynet.uz/" legacyBehavior>
                   <a
