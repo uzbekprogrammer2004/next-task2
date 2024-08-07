@@ -62,7 +62,7 @@ import http from "@/api/interseptors";
 import axios, { AxiosResponse } from 'axios';
 
 export interface Product {
-  id: number;
+  product_id: string;
   product_name: string;
   image_url: string[];
   basket: string; // Adjust type if needed

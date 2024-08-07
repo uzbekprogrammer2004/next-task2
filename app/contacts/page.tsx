@@ -334,7 +334,6 @@
 // };
 
 // export default ShoppingCart;
-
 "use client";
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
@@ -347,6 +346,7 @@ import axios, { AxiosResponse } from 'axios';
 import nikelogo from "@/public/nikelogo.jpg";
 import clicklogo from "@/public/adidaslogo.png";
 import paymelogo from "@/public/reeboklogo.png";
+
 interface Product {
   product_id: number;
   product_name: string;
@@ -421,15 +421,16 @@ const ShoppingCart: React.FC = () => {
     setProducts([]);
   };
 
-  const totalQuantity = products.reduce(
+  // Handle case when products is null or empty
+  const totalQuantity = products.length > 0 ? products.reduce(
     (total, product) => total + product.count,
     0
-  );
+  ) : 0;
 
-  const totalPrice = products.reduce(
+  const totalPrice = products.length > 0 ? products.reduce(
     (total, product) => total + product.count * product.cost,
     0
-  );
+  ) : 0;
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     console.log(data);
@@ -594,46 +595,46 @@ const ShoppingCart: React.FC = () => {
             </div>
             <div>
               <h2 className="flex pl-4" >To'lov tizimlari</h2>
-            <div className="bg-white-100 p-4 flex gap-2 ">
-              <Link href="https://paynet.uz/" legacyBehavior>
-                <a
-                  target="_blank"
-                  className="flex items-center gap-2 bg-[#F2F2F2] hover:bg-red-300 text-black font-bold py-2 px-4 rounded"
-                >
-                  <Image src={clicklogo} alt="Paynet" width={50} height={50} />
-                  <span>PAYNET</span>
-                </a>
-              </Link>
-              <Link href="https://payme.uz/" legacyBehavior>
-                <a
-                  target="_blank"
-                  className="flex items-center gap-2 bg-[#F2F2F2] hover:bg-red-300 text-black font-bold py-2 px-4 rounded"
-                >
-                  <Image src={clicklogo} alt="Paynet" width={50} height={50} />
-                  <span>PAYME</span>
-                </a>
-              </Link>
-              <Link href="https://click.uz/" legacyBehavior>
-                <a
-                  target="_blank"
-                  className="flex items-center gap-2 bg-[#F2F2F2] hover:bg-red-300 text-black font-bold py-2 px-4 rounded"
-                >
-                  <Image src={clicklogo} alt="Paynet" width={50} height={50} />
-                  <span>CLICK</span>
-                </a>
-              </Link>
-            </div>
-            <form className="flex text-center px-4 gap-1 ">
-              <input type="checkbox"/>
-              <p className="flex mt-4" >Naqd pul bilan to'lov qilish</p>
-            </form>
+              <div className="bg-white-100 p-4 flex gap-2 ">
+                <Link href="https://paynet.uz/" legacyBehavior>
+                  <a
+                    target="_blank"
+                    className="flex items-center gap-2 bg-[#F2F2F2] hover:bg-red-300 text-black font-bold py-2 px-4 rounded"
+                  >
+                    <Image src={clicklogo} alt="Paynet" width={50} height={50} />
+                    <span>PAYNET</span>
+                  </a>
+                </Link>
+                <Link href="https://payme.uz/" legacyBehavior>
+                  <a
+                    target="_blank"
+                    className="flex items-center gap-2 bg-[#F2F2F2] hover:bg-red-300 text-black font-bold py-2 px-4 rounded"
+                  >
+                    <Image src={clicklogo} alt="Paynet" width={50} height={50} />
+                    <span>PAYME</span>
+                  </a>
+                </Link>
+                <Link href="https://click.uz/" legacyBehavior>
+                  <a
+                    target="_blank"
+                    className="flex items-center gap-2 bg-[#F2F2F2] hover:bg-red-300 text-black font-bold py-2 px-4 rounded"
+                  >
+                    <Image src={clicklogo} alt="Paynet" width={50} height={50} />
+                    <span>CLICK</span>
+                  </a>
+                </Link>
+              </div>
+              <form className="flex text-center px-4 gap-1 ">
+                <input type="checkbox"/>
+                <p className="flex mt-4" >Naqd pul bilan to'lov qilish</p>
+              </form>
             </div>
             <button
-                  type="submit"
-                  className="w-[89%] mx-4 py-4 bg-yellow-500 text-white rounded-lg font-semibold"
-                >
-                  Купить
-                </button>
+              type="submit"
+              className="w-[89%] mx-4 py-4 bg-yellow-500 text-white rounded-lg font-semibold"
+            >
+              Купить
+            </button>
           </div>
         </div>
       </div>
