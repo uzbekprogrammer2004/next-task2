@@ -265,7 +265,7 @@ const ShoppingCart: React.FC = () => {
               </form>
             </div>
             <div>
-              <h2 className="pl-4">Tolov tizimlari</h2>
+              <h2 className="pl-4">платежные системы</h2>
               <div className="bg-white-100 p-4 flex gap-2 ">
                 <Link href="https://paynet.uz/" legacyBehavior>
                   <a
