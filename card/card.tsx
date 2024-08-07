@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Card, Col, Row, Spin, Button, Tag, notification } from 'antd';
 import { getProduct, Product } from '@/service/product';
 import { basketSave } from '@/service/korzina';
+import { likeSave } from '@/service/like';
 import { Favorite, FavoriteBorder } from '@mui/icons-material';
 
 const YourComponent = () => {
@@ -16,6 +17,7 @@ const YourComponent = () => {
     setLoading(true);
     try {
       const response = await getProduct(page, limit);
+      
       console.log('Serverdan javob:', response);
       if (response) {
         const validProducts = response.filter(product =>
@@ -29,7 +31,15 @@ const YourComponent = () => {
             }
           })
         );
+        
+        // Liked holatlarini sozlash
+        const liked = validProducts.reduce((acc: Record<string, boolean>, product) => {
+          acc[product.product_id] = product.liked || false; // `product.liked` mavjud bo'lmasa false qiymat qo'shish
+          return acc;
+        }, {});
+        
         setData(validProducts as Product[]);
+        setLikedProducts(liked);
       }
     } catch (error) {
       console.log('Mahsulotlarni yuklashda xatolik:', error);
@@ -37,7 +47,7 @@ const YourComponent = () => {
       setLoading(false);
     }
   };
-
+  
   useEffect(() => {
     fetchProducts(1, limit);
   }, [limit]);
@@ -74,11 +84,36 @@ const YourComponent = () => {
     }
   };
 
-  const toggleLikeProduct = (productId: string) => {
-    setLikedProducts((prevLikedProducts) => ({
-      ...prevLikedProducts,
-      [productId]: !prevLikedProducts[productId],
-    }));
+  const handleAddToLike = async (productId: string) => {
+    console.log('Serverga productId yuborilmoqda: ', productId);
+    try {
+      const response = await likeSave({ productId });
+      console.log('Serverdan javob:', response);
+      if (response && response.status === 201) {
+        setLikedProducts((prevLikedProducts) => ({
+          ...prevLikedProducts,
+          [productId]: !prevLikedProducts[productId],
+        }));
+        notification.success({
+          message: 'Success',
+          description: 'Like bo\'yicha ma\'lumot muvaffaqiyatli saqlandi',
+        });
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error('Xato tafsilotlari:', error.message);
+        notification.error({
+          message: 'Saqlashda xatolik',
+          description: 'Ma\'lumot saqlanmadi',
+        });
+      } else {
+        console.error('Noma\'lum xato:', error);
+        notification.error({
+          message: 'Saqlashda xatolik',
+          description: 'Ma\'lumot saqlanmadi',
+        });
+      }
+    }
   };
 
   return (
@@ -91,9 +126,9 @@ const YourComponent = () => {
         <>
           <Row gutter={[16, 16]}>
             {data.map((product) => (
-              <Col span={6} key={product.product_id} className='hover:scale-105'>
+              <Col xs={24} sm={12} md={12} lg={8} xl={6} key={product.product_id} className='hover:scale-105'>
                 <Card
-                  className="relative"
+                  className="relative card-responsive"
                   cover={
                     <div className="h-48 w-full object-cover">
                       {product.image_url[0] && (
@@ -114,7 +149,7 @@ const YourComponent = () => {
                   <Tag color="red" className="absolute top-2 left-2 z-10">Aksiya</Tag>
                   <div
                     className="absolute top-2 right-2 z-10 cursor-pointer"
-                    onClick={() => toggleLikeProduct(product.product_id)}
+                    onClick={() => handleAddToLike(product.product_id)}
                   >
                     {likedProducts[product.product_id] ? (
                       <Favorite style={{ color: 'red' }} />
@@ -147,3 +182,4 @@ const YourComponent = () => {
 };
 
 export default YourComponent;
+

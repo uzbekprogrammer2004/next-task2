@@ -9,7 +9,7 @@ import AdidasLogo from '@/public/adidaslogo.png';
 import ReebokLogo from '@/public/reeboklogo.png';
 import Img from '@/public/png.png';
 import CaruselImg from '@/public/13.jpg';
-import YourComponent from '@/card/card'
+import ProductCard from '@/card/card'
 const Index = () => {
   return (
     <main className="bg-[#f2f2f2] pt-7 pb-9 overflow-x-hidden">
@@ -29,8 +29,8 @@ const Index = () => {
           </div>
         </Carousel>
       </div>
-      <div className='mx-[122px]' >
-      <YourComponent/>
+      <div className='lg:px-[138px] md:flex-row flex md:flex-wrap-reverse pt-[13px] pb-[53px] w-full' >
+      <ProductCard/>
       </div>
       <div className="mx-[20px] lg:mx-[138px] overflow-x-hidden">
         <h2 className="text-[#1e1c14] text-[24px] lg:text-[32px] pt-11 pb-7 font-medium font-[Fira Sans]">
